@@ -31,6 +31,14 @@ Route::get('admin/dangxuat','UserController@getDangXuatAmin');
 Route::get('dangnhap','PageController@getdangnhap');
 Route::post('dangnhap','PageController@postdangnhap');
 
+Route::get('dangxuat','PageController@getdangxuat');
+
+Route::get('tintuc/{id}/{TieuDeKhongDau}.html','PageController@tintuc');
+
+Route::post('comment/{id}','CommentController@postComment');
+
+Route::get('search','PageController@getsearch');
+
 Route::group(['prefix'=>'admin','middleware'=>'AdminLogin'],function(){
 
     //--Chuyên Mục--

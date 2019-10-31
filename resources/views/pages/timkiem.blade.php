@@ -1,9 +1,9 @@
 @include('layout.header')
     <div class="panel panel-default">
         <div class="panel-heanding" style="backgroundcolor:#337AB7;color:white;">
-            <h2 style="color:red;margin-top:0px; margin-bottom:0px;">
-                Tin Tức Chung
-            </h2>
+            <h3 style="color:red;margin:80px;">
+                Tin tức tìm kiếm: {{$key}}
+            </h3>
         </div>
 
         <div class="panel-body" style="margin-left:200px;">
@@ -16,7 +16,7 @@
                 <hr>
             @endforeach
 
-             {!! $tintuc->render() !!} 
+            {!! $tintuc->render() !!}
         </div>
     </div>
     <style>

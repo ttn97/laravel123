@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\ChuyenMuc;
 use App\TinTuc;
 use Illuminate\Support\Facades\Auth;
-use App\User;
+
 
 class PageController extends Controller
 {
@@ -16,22 +16,22 @@ class PageController extends Controller
     {
         $chuyenmuc=ChuyenMuc::all();
         $tintuc=TinTuc::all();
-        $user=User::all();
         view()->share('chuyenmuc',$chuyenmuc);
         view()->share('tintuc',$tintuc);
-
-     
-            view()->share('user',Auth::user());
-      
+        
+        if(Auth::check()){
+            view()->share('nguoidung',Auth::user());
+        }
     }
 
     public function trangchu()
-    {
-        return view('pages/trangchu');
+    {   
+        $tintuc=TinTuc::paginate(4);
+        return view('pages/trangchu')->with('tintuc',$tintuc);
     }
     
     public function lienhe()
-    {
+    {   
         return view('pages/lienhe');
     }
 
@@ -59,4 +59,22 @@ class PageController extends Controller
             return redirect('admin/dangnhap')->with('notice','lỗi nhập email hoặc mật khẩu');
         }
     }   
+
+    public function getdangxuat(){
+        Auth::logout();
+        return redirect('dangnhap');
+    }
+
+    public function tintuc($id){
+        $tintuc=TinTuc::find($id);
+        $tinlienquan = TinTuc::where('idChuyenMuc',$tintuc->idChuyenMuc)->take(3)->get();
+        return view('pages/tintuc')->with('tintuc',$tintuc)->with('tinlienquan',$tinlienquan);
+        
+    }
+
+    public function getsearch(Request $request){
+        $key=$request->key;
+        $tintuc=TinTuc::where('TieuDe','like',"%$key%")->orWhere('TomTat','like',"%$key%")->orWhere('NoiDung','like',"%$key%")->take(20)->paginate(5);
+        return view('pages/timkiem')->with('tintuc',$tintuc)->with('key',$key);
+    }
 }

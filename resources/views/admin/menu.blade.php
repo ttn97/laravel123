@@ -21,7 +21,11 @@
                 </ul>   
             </li>
             <li>
+                <a href="<?php echo url('admin/pages/trangchu');?>">Trang Chủ</a>
+            </li>
+            <li>
                 <a href="<?php echo url('/admin/dangxuat'); ?>"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
             </li> 
+
         </ul>
 </div>
